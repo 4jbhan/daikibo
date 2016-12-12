@@ -2,20 +2,9 @@
 using System.Collections;
 
 public class raw_position : MonoBehaviour {
-
     public Vector3[,] cordinates = new Vector3[8,8];
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public void data_setter()
+    public void setter()
     {
         cordinates[0, 0] = new Vector3((float)3.159854, (float)-9.396926, (float)1.308854);
         cordinates[1, 0] = new Vector3((float)1.308854, (float)-9.396926, (float)3.159854);

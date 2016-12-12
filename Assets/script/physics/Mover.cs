@@ -1,42 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class cordinates_setter : MonoBehaviour {
+public class Mover : MonoBehaviour {
     public raw_position r_p;
     // Use this for initialization
-    void Start()
-    {
+    void Start () {
         r_p = GetComponent<raw_position>();
-        r_p.data_setter();
+        r_p.setter();
     }
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 
-
-    public void array_t_opos(int[,] image )
+    public void ArraytoPosition(int[,] curCryPosId)
     {
-        for(int i=0;i<8;i++)
+
+        for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
             {
                 string tmp = null;
-                switch (image[i, j])
+                switch (curCryPosId[i, j])
                 {
                     case 1:
-                        tmp = "myking";                        
+                        tmp = "myking";
                         break;
                     case 2:
-                        tmp = "myqueen";                                               
+                        tmp = "myqueen";
                         break;
                     case 3:
-                        tmp = "mybishop1";                                               
+                        tmp = "mybishop1";
                         break;
                     case 4:
                         tmp = "mybishop2";
                         break;
                     case 5:
-                        tmp = "myknight1";                                               
+                        tmp = "myknight1";
                         break;
                     case 6:
-                        tmp = "myknight2";                                              
+                        tmp = "myknight2";
                         break;
                     case 7:
                         tmp = "myrook1";
@@ -131,8 +135,4 @@ public class cordinates_setter : MonoBehaviour {
             }
         }
     }
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

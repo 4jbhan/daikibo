@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UserInterface : MonoBehaviour {
+public class User_Interface : MonoBehaviour
+{
     public float distance = 100f;
 
     // Use this for initialization
-    void Start () {
-	
-	}
-    
+    void Start()
+    {
+
+    }
+
     public GameObject getClickObject()
     {
         GameObject result = null;

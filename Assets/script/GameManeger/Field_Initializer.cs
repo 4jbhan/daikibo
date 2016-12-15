@@ -2,17 +2,17 @@
 using System.Collections;
 
 public class Field_Initializer : MonoBehaviour {
-    public Mover mov;
-    public Data_Initializer d_a;
+    public Object_Mover o_mov;
+    public Data_Initializer d_init;
     // Use this for initialization
     void Start () {
-        mov = GetComponent<Mover>();
-        d_a = GetComponent<Data_Initializer>();
+        o_mov = GetComponent<Object_Mover>();
+        d_init = GetComponent<Data_Initializer>();
     }
 	
-	public void _fPosInitializer(int[,] curCryPosId)
+	public void PosInit(int[,] CryPosition)
     {
-        d_a._fPosSetter(curCryPosId);
-        mov.ArraytoPosition(curCryPosId);
+        d_init.PosSetter(CryPosition);
+        o_mov.ArraytoPos(CryPosition);
     }    
 }

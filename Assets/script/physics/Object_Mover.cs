@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mover : MonoBehaviour {
-    public raw_position r_p;
+public class Object_Mover : MonoBehaviour
+{
+    public raw_position r_pos;
     // Use this for initialization
-    void Start () {
-        r_p = GetComponent<raw_position>();
-        r_p.setter();
+    void Start()
+    {
+        r_pos = GetComponent<raw_position>();
+        r_pos.setter();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    public void ArraytoPosition(int[,] curCryPosId)
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void ArraytoPos(int[,] CryPosition)
     {
 
         for (int i = 0; i < 8; i++)
@@ -22,7 +25,7 @@ public class Mover : MonoBehaviour {
             for (int j = 0; j < 8; j++)
             {
                 string tmp = null;
-                switch (curCryPosId[i, j])
+                switch (CryPosition[i, j])
                 {
                     case 1:
                         tmp = "myking";
@@ -128,8 +131,8 @@ public class Mover : MonoBehaviour {
                 if (tmp != null)
                 {
                     GameObject hand = GameObject.Find(tmp);
-                    Rigidbody are = hand.GetComponent<Rigidbody>();
-                    are.GetComponent<Rigidbody>().MovePosition(r_p.cordinates[i, j]);
+                    Rigidbody rigid = hand.GetComponent<Rigidbody>();
+                    rigid.GetComponent<Rigidbody>().MovePosition(r_pos.rawPosition[i, j]);
 
                 }
             }

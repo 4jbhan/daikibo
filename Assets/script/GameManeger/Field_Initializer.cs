@@ -13,6 +13,7 @@ public class Field_Initializer : MonoBehaviour {
 	public void PosInit(int[,] CryPosition)
     {
         d_init.PosSetter(CryPosition);
+        d_init.DicSetter();
         o_mov.ArraytoPos(CryPosition);
     }    
 }

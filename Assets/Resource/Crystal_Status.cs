@@ -2,23 +2,23 @@
 using System.Collections;
 
 public class Crystal_Status : MonoBehaviour {
-    private int id,hp,atk;
-
-
-
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-
-
-    public void setter(int _id,int _hp,int _atk)
+    public int hp;
+    public int atk;
+    public int x;
+    public int y;
+    public string personal;
+    public int owntag;
+    public bool iff;
+     
+	public void setter(int hitpoint,int atack,int iy, int ix,string name,int tag, bool who)
     {
-        id = _id;
-        hp = _hp;
-        atk = _atk;
+        hp = hitpoint;
+        atk = atack;
+        x = ix;
+        y = iy;
+        personal = name;
+        owntag = tag;
+        iff = who;
     }
-	
-	
+
 }

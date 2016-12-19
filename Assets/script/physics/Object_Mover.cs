@@ -3,13 +3,17 @@ using System.Collections;
 
 public class Object_Mover : MonoBehaviour
 {
-    public GameObject marker, tmp;
-    private raw_position r_pos;
+    public GameObject marker;
+    //private raw_position r_pos;
+    public Data_Initializer d_init;
     // Use this for initialization
     void Start()
     {
-        r_pos = GetComponent<raw_position>();
-        r_pos.setter();
+      //  r_pos = GetComponent<raw_position>();
+       // r_pos.setter();
+
+        d_init = GetComponent<Data_Initializer>();
+        d_init.RawPossetter();
     }
 
     public void ArraytoPos(int[,] CryPosition)
@@ -127,7 +131,7 @@ public class Object_Mover : MonoBehaviour
                 {
                     GameObject hand = GameObject.Find(tmp);
                     Rigidbody rigid = hand.GetComponent<Rigidbody>();
-                    rigid.GetComponent<Rigidbody>().MovePosition(r_pos.rawPosition[i, j]);
+                    rigid.GetComponent<Rigidbody>().MovePosition(d_init.rawPosition[i, j]);
 
                 }
             }
@@ -136,13 +140,13 @@ public class Object_Mover : MonoBehaviour
 
     public void MrkMaker(int[,] MrkCheck)
     {
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
             {
                 if (MrkCheck[i, j] == 1)
                 {
-                    tmp = (GameObject)Instantiate(marker, r_pos.rawPosition[i, j], Quaternion.identity);
+                    GameObject tmp = (GameObject)Instantiate(marker, d_init.rawPosition[i, j], Quaternion.identity);
                     tmp.name = i.ToString() + j.ToString() + tmp.name;
                 }
             }
@@ -161,7 +165,7 @@ public class Object_Mover : MonoBehaviour
 
     public void MrkPawn(int[,] CryPosition, int[,] MrkCheck, int x, int y)
     {
-        if (y<7 && CryPosition[y + 1, x] == 0)
+        if (y < 7 && CryPosition[y + 1, x] == 0)
         {
             MrkCheck[y + 1, x] = 1;
         }
@@ -170,7 +174,7 @@ public class Object_Mover : MonoBehaviour
     public void MrkQueen(int[,] CryPosition, int[,] MrkCheck, int x, int y)
     {
         int yc = y, xc = x;
-        while(yc < 7 && CryPosition[yc + 1, xc] == 0 && MrkCheck[yc + 1, xc] == 0)
+        while (yc < 7 && CryPosition[yc + 1, xc] == 0 && MrkCheck[yc + 1, xc] == 0)
         {
             MrkCheck[yc + 1, xc] = 1;
             yc++;
@@ -186,7 +190,7 @@ public class Object_Mover : MonoBehaviour
         yc = y;
         xc = x;
 
-        while (CryPosition[yc, (xc+7)%8] == 0 && MrkCheck[yc, (xc + 7) % 8] == 0)
+        while (CryPosition[yc, (xc + 7) % 8] == 0 && MrkCheck[yc, (xc + 7) % 8] == 0)
         {
             MrkCheck[yc, (xc + 7) % 8] = 1;
             xc = (xc + 7) % 8;
@@ -194,9 +198,9 @@ public class Object_Mover : MonoBehaviour
         yc = y;
         xc = x;
 
-        while (CryPosition[yc, (xc+1)%8] == 0 && MrkCheck[yc, (xc+1)%8] == 0)
+        while (CryPosition[yc, (xc + 1) % 8] == 0 && MrkCheck[yc, (xc + 1) % 8] == 0)
         {
-            MrkCheck[yc, (xc + 1) %8] = 1;
+            MrkCheck[yc, (xc + 1) % 8] = 1;
             xc = (xc + 1) % 8;
         }
 
@@ -277,7 +281,7 @@ public class Object_Mover : MonoBehaviour
             yc--;
             xc = (xc + 7) % 8;
         }
-               
+
     }
 
 
@@ -354,7 +358,7 @@ public class Object_Mover : MonoBehaviour
 
     public void MrkKnight(int[,] CryPosition, int[,] MrkCheck, int x, int y)
     {
-        if (y + 2 < 8 && CryPosition[y+2,(x + 1) % 8]==0)
+        if (y + 2 < 8 && CryPosition[y + 2, (x + 1) % 8] == 0)
         {
             MrkCheck[y + 2, (x + 1) % 8] = 1;
         }

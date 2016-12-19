@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28744343, g: 0.3361618, b: 0.52204746, a: 1}
+  m_IndirectSpecularColor: {r: 0.28750977, g: 0.33616576, b: 0.5220631, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Name
       value: enemybishop1
@@ -249,7 +249,7 @@ Prefab:
     - target: {fileID: 2300000, guid: c66007cc90bc09845985fcf4c967919b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 9500000, guid: c66007cc90bc09845985fcf4c967919b, type: 3}
       propertyPath: m_Controller
       value: 
@@ -347,10 +347,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 84414088}
-  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0.16, y: 18.85, z: -24.95}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16, y: 0, z: -27.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
@@ -422,7 +422,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn6
@@ -484,7 +484,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn3
@@ -546,7 +546,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn4
@@ -608,7 +608,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn7
@@ -819,7 +819,7 @@ Prefab:
     - target: {fileID: 2300000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Name
       value: enemyrook1
@@ -924,7 +924,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn3
@@ -1250,7 +1250,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn6
@@ -1312,7 +1312,7 @@ Prefab:
     - target: {fileID: 2300000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Name
       value: myrook1
@@ -1460,7 +1460,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn8
@@ -1582,8 +1582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce06fbe851bed734885d6e6e11fd1a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marker: {fileID: 1000014054879636, guid: 54d721083da56db42a5487b36b4fa954, type: 2}
-  tmp: {fileID: 0}
+  marker: {fileID: 1000012805425478, guid: dfdf2269d383baa4aaa864b47330cb38, type: 2}
+  d_init: {fileID: 0}
 --- !u!114 &622614145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1608,12 +1608,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b271e3587abe784fa4fcc7d0a405e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  f_init: {fileID: 0}
   d_init: {fileID: 0}
   u_i: {fileID: 0}
-  r_pos: {fileID: 0}
-  tmp: {fileID: 0}
+  o_mov: {fileID: 0}
+  tmpobj: {fileID: 0}
   obj: {fileID: 0}
+  marked: 0
+  moved: 0
 --- !u!114 &622614149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,7 +1626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae93bd6ea1c1c44487ee3a5fa31893a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 100
   o_mov: {fileID: 0}
 --- !u!1001 &634002434
 Prefab:
@@ -1681,7 +1681,7 @@ Prefab:
     - target: {fileID: 2300000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Name
       value: enemyknight1
@@ -1743,7 +1743,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Name
       value: mybishop2
@@ -1805,7 +1805,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn2
@@ -1867,7 +1867,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn2
@@ -2144,7 +2144,7 @@ Prefab:
     - target: {fileID: 2300000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Name
       value: myrook2
@@ -2214,7 +2214,7 @@ Prefab:
     - target: {fileID: 13700000, guid: f6bbad0cfc8ee704c8a43adc826e3fa7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100020, guid: f6bbad0cfc8ee704c8a43adc826e3fa7, type: 3}
       propertyPath: m_Name
       value: enemyking
@@ -2276,7 +2276,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn5
@@ -2467,7 +2467,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Name
       value: enemybishop2
@@ -2529,7 +2529,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn4
@@ -2591,7 +2591,7 @@ Prefab:
     - target: {fileID: 2300000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Name
       value: myknight2
@@ -2696,7 +2696,7 @@ Prefab:
     - target: {fileID: 2300000, guid: c66007cc90bc09845985fcf4c967919b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 9500000, guid: c66007cc90bc09845985fcf4c967919b, type: 3}
       propertyPath: m_Controller
       value: 
@@ -2771,7 +2771,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: enemypawn1
@@ -2821,7 +2821,7 @@ Prefab:
     - target: {fileID: 13700000, guid: 1f48994ece6dba44d8e5dad4e97d0dae, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100022, guid: 1f48994ece6dba44d8e5dad4e97d0dae, type: 3}
       propertyPath: m_Name
       value: myqueen
@@ -3024,7 +3024,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn1
@@ -3086,7 +3086,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn7
@@ -3152,7 +3152,7 @@ Prefab:
     - target: {fileID: 13700000, guid: 1f48994ece6dba44d8e5dad4e97d0dae, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100022, guid: 1f48994ece6dba44d8e5dad4e97d0dae, type: 3}
       propertyPath: m_Name
       value: enemyqueen
@@ -3226,7 +3226,7 @@ Prefab:
     - target: {fileID: 2300000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Name
       value: myknight1
@@ -3304,7 +3304,7 @@ Prefab:
     - target: {fileID: 2300000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: b8be84ef74905704f9b173454ce3ffde, type: 3}
       propertyPath: m_Name
       value: enemyknight2
@@ -3581,7 +3581,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn8
@@ -3643,7 +3643,7 @@ Prefab:
     - target: {fileID: 2300000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: e8eb02b9ad7758c4998b12fd1126f465, type: 3}
       propertyPath: m_Name
       value: mypawn5
@@ -3791,7 +3791,7 @@ Prefab:
     - target: {fileID: 2300000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
+      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
     - target: {fileID: 100000, guid: d0a0453d183843f44b1f07c139a1ad92, type: 3}
       propertyPath: m_Name
       value: enemyrook2
@@ -3904,7 +3904,7 @@ Prefab:
     - target: {fileID: 13700000, guid: f6bbad0cfc8ee704c8a43adc826e3fa7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100020, guid: f6bbad0cfc8ee704c8a43adc826e3fa7, type: 3}
       propertyPath: m_Name
       value: myking
@@ -4009,7 +4009,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 696b6900ec765c14c9e34c6c8c7508d9, type: 2}
+      objectReference: {fileID: 2100000, guid: 305dd1e98850a4e478779be3abecedfe, type: 2}
     - target: {fileID: 100000, guid: 7b854cf60acb9ca41a570d1f20c82399, type: 3}
       propertyPath: m_Name
       value: mybishop1

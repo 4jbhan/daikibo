@@ -3,19 +3,20 @@ using System.Collections;
 
 public class Object_Mover : MonoBehaviour
 {
+    //マーカーに使用するオブジェクト
     public GameObject marker;
-    //private raw_position r_pos;
-    public Data_Initializer d_init;
-    // Use this for initialization
+
+    //他スクリプトのインスタンス
+    Game_Data g_data;
+
     void Start()
     {
-      //  r_pos = GetComponent<raw_position>();
-       // r_pos.setter();
-
-        d_init = GetComponent<Data_Initializer>();
-        d_init.RawPossetter();
+        g_data = GetComponent<Game_Data>();
+        g_data.RawPossetter();
     }
 
+    //盤面の状態から実際に駒の展開を一気に行う
+    //主に盤面の初期化用
     public void ArraytoPos(int[,] CryPosition)
     {
 
@@ -24,7 +25,7 @@ public class Object_Mover : MonoBehaviour
             for (int j = 0; j < 8; j++)
             {
                 string tmp = null;
-                switch (CryPosition[i, j])
+                switch (CryPosition[i, j])//idに応じて移動させる駒の名前を設定
                 {
                     case 1:
                         tmp = "myking";
@@ -129,275 +130,12 @@ public class Object_Mover : MonoBehaviour
                 }
                 if (tmp != null)
                 {
-                    GameObject hand = GameObject.Find(tmp);
+                    GameObject hand = GameObject.Find(tmp);//駒の名前からオブジェクトの実体を取得する
                     Rigidbody rigid = hand.GetComponent<Rigidbody>();
-                    rigid.GetComponent<Rigidbody>().MovePosition(d_init.rawPosition[i, j]);
+                    rigid.GetComponent<Rigidbody>().MovePosition(g_data.rawPosition[i, j]);
 
                 }
             }
         }
-    }
-
-    public void MrkMaker(int[,] MrkCheck)
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (MrkCheck[i, j] == 1)
-                {
-                    GameObject tmp = (GameObject)Instantiate(marker, d_init.rawPosition[i, j], Quaternion.identity);
-                    tmp.name = i.ToString() + j.ToString() + tmp.name;
-                }
-            }
-        }
-    }
-
-    public void MrkRemover()
-    {
-        var clones = GameObject.FindGameObjectsWithTag("marker");
-        foreach (var clone in clones)
-        {
-            Destroy(clone);
-        }
-    }
-
-
-    public void MrkPawn(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        if (y < 7 && CryPosition[y + 1, x] == 0)
-        {
-            MrkCheck[y + 1, x] = 1;
-        }
-    }
-
-    public void MrkQueen(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        int yc = y, xc = x;
-        while (yc < 7 && CryPosition[yc + 1, xc] == 0 && MrkCheck[yc + 1, xc] == 0)
-        {
-            MrkCheck[yc + 1, xc] = 1;
-            yc++;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, xc] == 0 && MrkCheck[yc - 1, xc] == 0)
-        {
-            MrkCheck[yc - 1, xc] = 1;
-            yc--;
-        }
-        yc = y;
-        xc = x;
-
-        while (CryPosition[yc, (xc + 7) % 8] == 0 && MrkCheck[yc, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc, (xc + 7) % 8] = 1;
-            xc = (xc + 7) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (CryPosition[yc, (xc + 1) % 8] == 0 && MrkCheck[yc, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc, (xc + 1) % 8] = 1;
-            xc = (xc + 1) % 8;
-        }
-
-        yc = y;
-        xc = x;
-
-        while (yc < 7 && CryPosition[yc + 1, (xc + 7) % 8] == 0 && MrkCheck[yc + 1, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc + 1, (xc + 7) % 8] = 1;
-            yc++;
-            xc = (xc + 7) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc < 7 && CryPosition[yc + 1, (xc + 1) % 8] == 0 && MrkCheck[yc + 1, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc + 1, (xc + 1) % 8] = 1;
-            yc++;
-            xc = (xc + 1) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, (xc + 1) % 8] == 0 && MrkCheck[yc - 1, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc - 1, (xc + 1) % 8] = 1;
-            yc--;
-            xc = (xc + 1) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, (xc + 7) % 8] == 0 && MrkCheck[yc - 1, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc - 1, (xc + 7) % 8] = 1;
-            yc--;
-            xc = (xc + 7) % 8;
-        }
-
-    }
-
-
-
-    public void MrkBishop(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        int yc = y, xc = x;
-        while (yc < 7 && CryPosition[yc + 1, (xc + 7) % 8] == 0 && MrkCheck[yc + 1, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc + 1, (xc + 7) % 8] = 1;
-            yc++;
-            xc = (xc + 7) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc < 7 && CryPosition[yc + 1, (xc + 1) % 8] == 0 && MrkCheck[yc + 1, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc + 1, (xc + 1) % 8] = 1;
-            yc++;
-            xc = (xc + 1) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, (xc + 1) % 8] == 0 && MrkCheck[yc - 1, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc - 1, (xc + 1) % 8] = 1;
-            yc--;
-            xc = (xc + 1) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, (xc + 7) % 8] == 0 && MrkCheck[yc - 1, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc - 1, (xc + 7) % 8] = 1;
-            yc--;
-            xc = (xc + 7) % 8;
-        }
-
-    }
-
-
-
-    public void MrkRook(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        int yc = y, xc = x;
-        while (yc < 7 && CryPosition[yc + 1, xc] == 0 && MrkCheck[yc + 1, xc] == 0)
-        {
-            MrkCheck[yc + 1, xc] = 1;
-            yc++;
-        }
-        yc = y;
-        xc = x;
-
-        while (yc > 0 && CryPosition[yc - 1, xc] == 0 && MrkCheck[yc - 1, xc] == 0)
-        {
-            MrkCheck[yc - 1, xc] = 1;
-            yc--;
-        }
-        yc = y;
-        xc = x;
-
-        while (CryPosition[yc, (xc + 7) % 8] == 0 && MrkCheck[yc, (xc + 7) % 8] == 0)
-        {
-            MrkCheck[yc, (xc + 7) % 8] = 1;
-            xc = (xc + 7) % 8;
-        }
-        yc = y;
-        xc = x;
-
-        while (CryPosition[yc, (xc + 1) % 8] == 0 && MrkCheck[yc, (xc + 1) % 8] == 0)
-        {
-            MrkCheck[yc, (xc + 1) % 8] = 1;
-            xc = (xc + 1) % 8;
-        }
-    }
-
-    public void MrkKing(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        if (y < 7 && CryPosition[y + 1, x] == 0)
-        {
-            MrkCheck[y + 1, x] = 1;
-        }
-        if (y < 7 && CryPosition[y + 1, (x + 1) % 8] == 0)
-        {
-            MrkCheck[y + 1, (x + 1) % 8] = 1;
-        }
-        if (y < 7 && CryPosition[y + 1, (x + 7) % 8] == 0)
-        {
-            MrkCheck[y + 1, (x + 7) % 8] = 1;
-        }
-        if (CryPosition[y, (x + 1) % 8] == 0)
-        {
-            MrkCheck[y, (x + 1) % 8] = 1;
-        }
-        if (CryPosition[y, (x + 7) % 8] == 0)
-        {
-            MrkCheck[y, (x + 7) % 8] = 1;
-        }
-        if (y > 0 && CryPosition[y - 1, x] == 0)
-        {
-            MrkCheck[y - 1, x] = 1;
-        }
-        if (y > 0 && CryPosition[y - 1, (x + 1) % 8] == 0)
-        {
-            MrkCheck[y - 1, (x + 1) % 8] = 1;
-        }
-        if (y > 0 && CryPosition[y - 1, (x + 7) % 8] == 0)
-        {
-            MrkCheck[y - 1, (x + 7) % 8] = 1;
-        }
-    }
-
-    public void MrkKnight(int[,] CryPosition, int[,] MrkCheck, int x, int y)
-    {
-        if (y + 2 < 8 && CryPosition[y + 2, (x + 1) % 8] == 0)
-        {
-            MrkCheck[y + 2, (x + 1) % 8] = 1;
-        }
-
-        if (y + 2 < 8 && CryPosition[y + 2, (x + 7) % 8] == 0)
-        {
-            MrkCheck[y + 2, (x + 7) % 8] = 1;
-        }
-
-        if (y + 1 < 8 && CryPosition[y + 1, (x + 2) % 8] == 0)
-        {
-            MrkCheck[y + 1, (x + 2) % 8] = 1;
-        }
-
-        if (y + 1 < 8 && CryPosition[y + 1, (x + 6) % 8] == 0)
-        {
-            MrkCheck[y + 1, (x + 6) % 8] = 1;
-        }
-
-        if (y > 1 && CryPosition[y - 2, (x + 1) % 8] == 0)
-        {
-            MrkCheck[y - 2, (x + 1) % 8] = 1;
-        }
-
-        if (y > 1 && CryPosition[y - 2, (x + 7) % 8] == 0)
-        {
-            MrkCheck[y - 2, (x + 7) % 8] = 1;
-        }
-
-        if (y > 0 && CryPosition[y - 1, (x + 2) % 8] == 0)
-        {
-            MrkCheck[y - 1, (x + 2) % 8] = 1;
-        }
-
-        if (y > 0 && CryPosition[y - 1, (x + 6) % 8] == 0)
-        {
-            MrkCheck[y - 1, (x + 6) % 8] = 1;
-        }
-
-
     }
 }

@@ -4,36 +4,59 @@ using System.Collections.Generic;
 
 public struct Crystal_Status
 {
+    //各ステータス
     public int hp;
     public int atk;
+
+    //初期座標
     public int x;
     public int y;
-    public string personal;
-    public int owntag;
+    
+    //駒の名前
+    public string name;
+
+    //駒の種別
+    //0 = キング　
+    //1 = クイーン
+    //2 = ビショップ
+    //3 = ナイト
+    //4 = ルーク
+    //5 = ポーン
+    public int tag;
+    
+    //青か赤か
+    //true = 青　false = 赤
     public bool iff;
 
-    public void setter(int hitpoint, int atack, int iy, int ix, string name, int tag, bool who)
+    //攻撃対象になりうる状態かどうか
+    public bool targeted;
+
+    //初期化用関数
+    public void setter(int hitpoint, int atack, int iy, int ix, string myname, int mytag, bool who, bool target)
     {
         hp = hitpoint;
         atk = atack;
         x = ix;
         y = iy;
-        personal = name;
-        owntag = tag;
+        name = myname;
+        tag = mytag;
         iff = who;
+        targeted = target;
     }
 }
 
-public class Data_Initializer : MonoBehaviour
+public class Game_Data : MonoBehaviour
 {
+    //名前からidへの変換用リファレンス
+    //辞書型、詳しくは調べて
     public Dictionary<string, int> NametoId = new Dictionary<string, int>();
+
+    //盤面上の座標の実体
+    //unity上では座標はベクトルなのでそれに準拠
     public Vector3[,] rawPosition = new Vector3[8, 8];
+ 
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
+    //CryPosition(盤面の状態)の初期化
     public void CryPosSetter(int[,] CryPosition)
     {
         CryPosition[0, 0] = 1;
@@ -102,44 +125,46 @@ public class Data_Initializer : MonoBehaviour
         CryPosition[7, 7] = 20;
     }
 
+    //各クリスタルのステータス設定
+    //0番目に関しては仮でmyobjectと設定してあるけど使っていない
     public void StatSetter(Crystal_Status[] crystat)
     {
-        //    cry_stat = new Crystal_Status[33];
-        crystat[0].setter(0, 0, 0, 0, "myobject", 100, false);
-        crystat[1].setter(5, 5, 0, 0, "myking", 0, true);
-        crystat[2].setter(4, 2, 0, 4, "myqueen", 1, true);
-        crystat[3].setter(2, 2, 0, 3, "mybishop1", 2, true);
-        crystat[4].setter(2, 2, 0, 7, "mybishop2", 2, true);
-        crystat[5].setter(2, 2, 0, 1, "myknight1", 3, true);
-        crystat[6].setter(2, 2, 0, 5, "myknight2", 3, true);
-        crystat[7].setter(3, 3, 0, 2, "myrook1", 4, true);
-        crystat[8].setter(3, 3, 0, 6, "myrook2", 4, true);
-        crystat[9].setter(1, 1, 1, 0, "mypawn1", 5, true);
-        crystat[10].setter(1, 1, 1, 1, "mypawn2", 5, true);
-        crystat[11].setter(1, 1, 1, 2, "mypawn3", 5, true);
-        crystat[12].setter(1, 1, 1, 3, "mypawn4", 5, true);
-        crystat[13].setter(1, 1, 1, 4, "mypawn5", 5, true);
-        crystat[14].setter(1, 1, 1, 5, "mypawn6", 5, true);
-        crystat[15].setter(1, 1, 1, 6, "mypawn7", 5, true);
-        crystat[16].setter(1, 1, 1, 7, "mypawn8", 5, true);
-        crystat[17].setter(5, 5, 1, 0, "enemyking", 0, false);
-        crystat[18].setter(4, 2, 1, 4, "enemyqueen", 1, false);
-        crystat[19].setter(2, 2, 7, 3, "enemybishop1", 2, false);
-        crystat[20].setter(2, 2, 7, 7, "enemybishop2", 2, false);
-        crystat[21].setter(2, 2, 7, 1, "enemyknight1", 3, false);
-        crystat[22].setter(2, 2, 7, 5, "enemyknight2", 3, false);
-        crystat[23].setter(3, 3, 7, 2, "enemyrook1", 4, false);
-        crystat[24].setter(3, 3, 7, 6, "enemyrook2", 4, false);
-        crystat[25].setter(1, 1, 6, 0, "enemypawn1", 5, false);
-        crystat[26].setter(1, 1, 6, 1, "enemypawn2", 5, false);
-        crystat[27].setter(1, 1, 6, 2, "enemypawn3", 5, false);
-        crystat[28].setter(1, 1, 6, 3, "enemypawn4", 5, false);
-        crystat[29].setter(1, 1, 6, 4, "enemypawn5", 5, false);
-        crystat[30].setter(1, 1, 6, 5, "enemypawn6", 5, false);
-        crystat[31].setter(1, 1, 6, 6, "enemypawn7", 5, false);
-        crystat[32].setter(1, 1, 6, 7, "enemypawn8", 5, false);
+        crystat[0].setter(0, 0, 0, 0, "myobject", 100, false, false);
+        crystat[1].setter(5, 5, 0, 0, "myking", 0, true, false);
+        crystat[2].setter(4, 2, 0, 4, "myqueen", 1, true, false);
+        crystat[3].setter(2, 2, 0, 3, "mybishop1", 2, true, false);
+        crystat[4].setter(2, 2, 0, 7, "mybishop2", 2, true, false);
+        crystat[5].setter(2, 2, 0, 1, "myknight1", 3, true, false);
+        crystat[6].setter(2, 2, 0, 5, "myknight2", 3, true, false);
+        crystat[7].setter(3, 3, 0, 2, "myrook1", 4, true, false);
+        crystat[8].setter(3, 3, 0, 6, "myrook2", 4, true, false);
+        crystat[9].setter(1, 1, 1, 0, "mypawn1", 5, true, false);
+        crystat[10].setter(1, 1, 1, 1, "mypawn2", 5, true, false);
+        crystat[11].setter(1, 1, 1, 2, "mypawn3", 5, true, false);
+        crystat[12].setter(1, 1, 1, 3, "mypawn4", 5, true, false);
+        crystat[13].setter(1, 1, 1, 4, "mypawn5", 5, true, false);
+        crystat[14].setter(1, 1, 1, 5, "mypawn6", 5, true, false);
+        crystat[15].setter(1, 1, 1, 6, "mypawn7", 5, true, false);
+        crystat[16].setter(1, 1, 1, 7, "mypawn8", 5, true, false);
+        crystat[17].setter(5, 5, 7, 0, "enemyking", 0, false, false);
+        crystat[18].setter(4, 2, 7, 4, "enemyqueen", 1, false, false);
+        crystat[19].setter(2, 2, 7, 3, "enemybishop1", 2, false, false);
+        crystat[20].setter(2, 2, 7, 7, "enemybishop2", 2, false, false);
+        crystat[21].setter(2, 2, 7, 1, "enemyknight1", 3, false, false);
+        crystat[22].setter(2, 2, 7, 5, "enemyknight2", 3, false, false);
+        crystat[23].setter(3, 3, 7, 2, "enemyrook1", 4, false, false);
+        crystat[24].setter(3, 3, 7, 6, "enemyrook2", 4, false, false);
+        crystat[25].setter(1, 1, 6, 0, "enemypawn1", 5, false, false);
+        crystat[26].setter(1, 1, 6, 1, "enemypawn2", 5, false, false);
+        crystat[27].setter(1, 1, 6, 2, "enemypawn3", 5, false, false);
+        crystat[28].setter(1, 1, 6, 3, "enemypawn4", 5, false, false);
+        crystat[29].setter(1, 1, 6, 4, "enemypawn5", 5, false, false);
+        crystat[30].setter(1, 1, 6, 5, "enemypawn6", 5, false, false);
+        crystat[31].setter(1, 1, 6, 6, "enemypawn7", 5, false, false);
+        crystat[32].setter(1, 1, 6, 7, "enemypawn8", 5, false, false);
     }
 
+    //idと各駒の対応表
     public void DicSetter()
     {
         NametoId.Add("myking", 1);
@@ -176,6 +201,8 @@ public class Data_Initializer : MonoBehaviour
         NametoId.Add("enemypawn8", 32);
     }
 
+    //盤面上の実体座標
+    //アクセスは　rawPosition[y,x]
     public void RawPossetter()
     {
         rawPosition[0, 0] = new Vector3((float)3.159854, (float)-9.396926, (float)1.308854);
@@ -242,10 +269,5 @@ public class Data_Initializer : MonoBehaviour
         rawPosition[7, 5] = new Vector3((float)-1.308854, (float)9.396926, (float)-3.159854);
         rawPosition[7, 6] = new Vector3((float)1.308854, (float)9.396926, (float)-3.159854);
         rawPosition[7, 7] = new Vector3((float)3.159854, (float)9.396926, (float)-1.308854);
-    }
-
-    public void attacking(Crystal_Status attacker, Crystal_Status defender)
-    {
-        defender.hp -= attacker.atk;
     }
 }

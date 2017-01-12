@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 
 public class Game_Master : MonoBehaviour
 {
@@ -23,7 +23,7 @@ public class Game_Master : MonoBehaviour
     public Crystal_Status[] crystat = new Crystal_Status[33];
     
     //盤面の状態
-    public int[,] CryPosition = new int[8, 8];
+    public static int[,] CryPosition = new int[8, 8];
 
     //攻撃対象保持リスト
     public List<int> targets = new List<int>();
@@ -35,7 +35,7 @@ public class Game_Master : MonoBehaviour
     public List<int> movablex = new List<int>();
     public List<int> movabley = new List<int>();
     //乱数
-    System.Random rand = new System.Random(1000);
+    System.Random rand = new System.Random();
 
     //各フラグ
     //marked マーカー展開中→true
@@ -123,6 +123,11 @@ public class Game_Master : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Development");
+        }
+
         if (ongame)
         {
             
@@ -353,6 +358,12 @@ public class Game_Master : MonoBehaviour
         Text_HpAtk31.text = "Pawn\nH" + crystat[31].hp + ":A" + crystat[31].atk;
         Text_HpAtk32.text = "Pawn\nH" + crystat[32].hp + ":A" + crystat[32].atk;
 
+    }
+
+    //別シーンでの盤面の取得
+    public static int[,] getField()
+    {
+        return CryPosition;
     }
 
 

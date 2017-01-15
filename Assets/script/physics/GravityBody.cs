@@ -20,6 +20,11 @@ public class GravityBody : MonoBehaviour
 
     void Update()
     {
-        attractor.Attract(myTransform);
+        if (attractor != null)
+        {
+            //GetComponent<Rigidbody>().isKinematic = false;
+            attractor.Attract(myTransform);
+            //GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 }

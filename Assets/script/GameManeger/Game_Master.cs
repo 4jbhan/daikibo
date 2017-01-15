@@ -20,7 +20,7 @@ public class Game_Master : MonoBehaviour
     GameObject tmpobj = null, obj = null;
 
     //各クリスタルのステータス
-    public Crystal_Status[] crystat = new Crystal_Status[33];
+    public static Crystal_Status[] crystat = new Crystal_Status[33];
     
     //盤面の状態
     public static int[,] CryPosition = new int[8, 8];
@@ -43,7 +43,8 @@ public class Game_Master : MonoBehaviour
     //eturn 赤のターン→true
     //pvp 対人→true
     //ongame ゲーム中→true
-    public bool marked = false, moved = false, eturn = false, pvp = false, ongame = true;
+    public bool marked = false, moved = false, eturn = false, pvp, ongame = true;
+   public static bool first = true;
 
     //選択中のオブジェクトのidを取得
     int id;
@@ -83,6 +84,11 @@ public class Game_Master : MonoBehaviour
     public TextMesh Text_HpAtk31;
     public TextMesh Text_HpAtk32;
 
+
+    void Awake()
+    {
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -91,11 +97,21 @@ public class Game_Master : MonoBehaviour
         u_i = GetComponent<User_Interface>();
         o_mov = GetComponent<Object_Mover>();
 
+
+       // Debug.Log(first);
         //各種データ初期化
         g_data.StatSetter(crystat);
-        g_data.CryPosSetter(CryPosition);
+
+        if (first)
+        {
+            first = false;
+            g_data.CryPosSetter(CryPosition);
+        }
+
         g_data.RawPossetter();
         g_data.DicSetter();
+
+        pvp = MyBotton.RetPvp();
 
         //駒の初期配置
         o_mov.ArraytoPos(CryPosition);
@@ -123,11 +139,7 @@ public class Game_Master : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("Development");
-        }
-
+        
         if (ongame)
         {
             
@@ -270,56 +282,92 @@ public class Game_Master : MonoBehaviour
                 }
             } else if (!pvp && eturn)//COMターン
             {
-                int aid;
-                do {
-                    aid = enemys[(int)rand.Next(enemys.Count - 1)];
-                    MrkGenerator(crystat[aid], CryPosition, pvp, eturn);
-                } while (movablex.Count <= 0);//移動可能な駒をランダムで選択
-                                
-                //移動座標をランダムで選択
-                int p = rand.Next(movablex.Count - 1);
-                int ax = movablex[p];
-                int ay = movabley[p];
+                int aid = -1,did;
 
-                //移動可能マスのリセット
-                mListResetter();
-
-                
-                //実際の移動処理
-                GameObject hand = GameObject.Find(crystat[aid].name);
-                var rigid = hand.GetComponent<Rigidbody>();
-                rigid.GetComponent<Rigidbody>().MovePosition(g_data.rawPosition[ay, ax]);
-
-
-                CryPosition[crystat[aid].y, crystat[aid].x] = 0;
-                crystat[aid].y = ay;
-                crystat[aid].x = ax;
-                CryPosition[crystat[aid].y, crystat[aid].x] = aid;
-
-                if (canAtkCheck(crystat[aid], CryPosition))
-                {//移動先から攻撃可能か判定
-                    
-                    //攻撃可能な対象からランダムに選択
-                    p = rand.Next(targets.Count - 1);                    
-                    crystat[targets[p]].hp -= crystat[aid].atk;
-                    
-                    if (crystat[targets[p]].hp <= 0)//破壊処理
+                foreach(var value in enemys)
+                {
+                    if (canAtkCheck(crystat[value], CryPosition))
                     {
-                        CryPosition[crystat[targets[p]].y, crystat[targets[p]].x] = 0;
-                        GameObject handler = GameObject.Find(crystat[targets[p]].name);
+                        aid = value;
+                        break;
+                    }
+                }
+
+                if (aid!=-1)
+                {
+                    //tag基準で昇順ソート
+                    //その先頭 = 最優先目標 
+                    targets.Sort(TagCompare);
+                    did = targets[0];
+
+                    crystat[did].hp -= crystat[aid].atk;
+
+                    if (crystat[did].hp <= 0)//破壊処理
+                    {
+                        CryPosition[crystat[did].y, crystat[did].x] = 0;
+                        GameObject handler = GameObject.Find(crystat[did].name);
                         Destroy(handler);
-                        if (crystat[targets[p]].tag == 0)//破壊された駒がキングならゲーム終了
+                        if (crystat[did].tag == 0)//破壊された駒がキングならゲーム終了
                         {
                             ongame = false;
+                        }
+                    }
+
+                } else {
+                    int c = 0;
+                    do {
+                        mListResetter();
+                        c++;
+                        aid = enemys[(int)rand.Next(enemys.Count - 1)];
+                        MrkGenerator(crystat[aid], CryPosition, pvp, eturn);
+                    } while (movablex.Count <= 0 || (c <= 2 && crystat[aid].tag != 5));//移動可能な駒をランダムで選択
+
+                    //移動座標をランダムで選択
+                    int p = rand.Next(movablex.Count - 1);
+                    int ax = movablex[p];
+                    int ay = movabley[p];
+
+                    //移動可能マスのリセット
+                    mListResetter();
+
+
+                    //実際の移動処理
+                    GameObject hand = GameObject.Find(crystat[aid].name);
+                    var rigid = hand.GetComponent<Rigidbody>();
+                    rigid.GetComponent<Rigidbody>().MovePosition(g_data.rawPosition[ay, ax]);
+
+
+                    CryPosition[crystat[aid].y, crystat[aid].x] = 0;
+                    crystat[aid].y = ay;
+                    crystat[aid].x = ax;
+                    CryPosition[crystat[aid].y, crystat[aid].x] = aid;
+
+                    if (canAtkCheck(crystat[aid], CryPosition))
+                    {//移動先から攻撃可能か判定
+
+                        
+                        targets.Sort(TagCompare);
+                        did = targets[0];
+
+                        crystat[did].hp -= crystat[aid].atk;
+
+                        if (crystat[did].hp <= 0)//破壊処理
+                        {
+                            CryPosition[crystat[did].y, crystat[did].x] = 0;
+                            GameObject handler = GameObject.Find(crystat[did].name);
+                            Destroy(handler);
+                            if (crystat[did].tag == 0)//破壊された駒がキングならゲーム終了
+                            {
+                                ongame = false;
+                            }
                         }
                     }                    
                 }
                 //エフェクト排除
                 EffectRemover();
                 //対象リストリセット
-                tListResetter();                
+                tListResetter();
                 eturn = false;
-
             }
         }
 
@@ -358,6 +406,11 @@ public class Game_Master : MonoBehaviour
         Text_HpAtk31.text = "Pawn\nH" + crystat[31].hp + ":A" + crystat[31].atk;
         Text_HpAtk32.text = "Pawn\nH" + crystat[32].hp + ":A" + crystat[32].atk;
 
+    }
+
+    //ソート用比較関数
+    public int TagCompare(int a, int b){
+        return crystat[a].tag.CompareTo(crystat[b].tag);
     }
 
     //別シーンでの盤面の取得
@@ -529,148 +582,7 @@ public class Game_Master : MonoBehaviour
         return flag;
     }
 
-    /*    public bool canQueenCheck(Crystal_Status attcker, int[,] CryPosition)
-        {
-            bool flag = false;
-        if (attcker.iff)
-        {
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, attcker.x] > 16)
-            {
-                targets.Add(CryPosition[attcker.y + 1, attcker.x]);
-                crystat[CryPosition[attcker.y + 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, (attcker.x + 1) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y + 1, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y + 1, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, (attcker.x + 7) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y + 1, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y + 1, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 1) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 7) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, attcker.x] > 16)
-            {
-                targets.Add(CryPosition[attcker.y - 1, attcker.x]);
-                crystat[CryPosition[attcker.y - 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, (attcker.x + 1) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y - 1, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y - 1, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, (attcker.x + 7) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y - 1, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y - 1, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-        }
-        else
-        {
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, attcker.x] < 17 && CryPosition[attcker.y + 1, attcker.x] > 0)
-            {
-                targets.Add(CryPosition[attcker.y + 1, attcker.x]);
-                crystat[CryPosition[attcker.y + 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, (attcker.x + 1) % 8] < 17 && CryPosition[attcker.y + 1, (attcker.x + 1) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y + 1, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y + 1, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, (attcker.x + 7) % 8] < 17 && CryPosition[attcker.y + 1, (attcker.x + 7) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y + 1, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y + 1, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 1) % 8] < 17 && CryPosition[attcker.y, (attcker.x + 1) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 7) % 8] < 17 && CryPosition[attcker.y, (attcker.x + 7) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, attcker.x] > 0 && CryPosition[attcker.y - 1, attcker.x] < 17)
-            {
-                targets.Add(CryPosition[attcker.y - 1, attcker.x]);
-                crystat[CryPosition[attcker.y - 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, (attcker.x + 1) % 8] < 17 && CryPosition[attcker.y - 1, (attcker.x + 1) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y - 1, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y - 1, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, (attcker.x + 7) % 8] < 17 && CryPosition[attcker.y - 1, (attcker.x + 7) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y - 1, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y - 1, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-        }
-
-        return flag;
-        }
-    */
-
+    
     public bool canBishopCheck(Crystal_Status attcker, int[,] CryPosition)
     {
         bool flag = false;
@@ -750,84 +662,7 @@ public class Game_Master : MonoBehaviour
         return flag;
     }
 
-    /*    public bool canKnightCheck(Crystal_Status attcker, int[,] CryPosition)
-        {
-            bool flag = false;
-        if (attcker.iff)
-        {
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, attcker.x] > 16)
-            {
-                targets.Add(CryPosition[attcker.y + 1, attcker.x]);
-                crystat[CryPosition[attcker.y + 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 1) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 7) % 8] > 16)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, attcker.x] > 16)
-            {
-                targets.Add(CryPosition[attcker.y - 1, attcker.x]);
-                crystat[CryPosition[attcker.y - 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-        }
-        else
-        {
-            if (attcker.y + 1 < 8 && CryPosition[attcker.y + 1, attcker.x] < 17 && CryPosition[attcker.y + 1, attcker.x] > 0)
-            {
-                targets.Add(CryPosition[attcker.y + 1, attcker.x]);
-                crystat[CryPosition[attcker.y + 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y + 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-
-            if (CryPosition[attcker.y, (attcker.x + 1) % 8] < 17 && CryPosition[attcker.y, (attcker.x + 1) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 1) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 1) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 1) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (CryPosition[attcker.y, (attcker.x + 7) % 8] < 17 && CryPosition[attcker.y, (attcker.x + 7) % 8] > 0)
-            {
-                targets.Add(CryPosition[attcker.y, (attcker.x + 7) % 8]);
-                crystat[CryPosition[attcker.y, (attcker.x + 7) % 8]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y, (attcker.x + 7) % 8], Quaternion.identity);
-                flag = true;
-            }
-            if (attcker.y - 1 >= 0 && CryPosition[attcker.y - 1, attcker.x] < 17 && CryPosition[attcker.y - 1, attcker.x] > 0)
-            {
-                targets.Add(CryPosition[attcker.y - 1, attcker.x]);
-                crystat[CryPosition[attcker.y - 1, attcker.x]].targeted = true;
-
-                Instantiate(Prefab_Effect, g_data.rawPosition[attcker.y - 1, attcker.x], Quaternion.identity);
-                flag = true;
-            }
-        }
-
-        return flag;
-        }*/
-
+   
     public bool canRookCheck(Crystal_Status attcker, int[,] CryPosition)
     {
         bool flag = false;

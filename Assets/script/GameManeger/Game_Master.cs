@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game_Master : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Game_Master : MonoBehaviour
 
     //ハイライト用エフェクト
     public GameObject Prefab_Effect;
+    public GameObject Damage_Effect;
+
 
     //マーカーに使用するオブジェクト
     public GameObject marker;
@@ -84,6 +87,7 @@ public class Game_Master : MonoBehaviour
     public TextMesh Text_HpAtk31;
     public TextMesh Text_HpAtk32;
 
+    public Text turnmanage;
 
     void Awake()
     {
@@ -135,6 +139,8 @@ public class Game_Master : MonoBehaviour
             enemys.Add(31);
             enemys.Add(32);
         }
+
+        turnmanage.text = "Blue Player Turn";
     }
 
     void Update()
@@ -153,20 +159,20 @@ public class Game_Master : MonoBehaviour
                         //対象のid取得
                         id = g_data.NametoId[obj.name];
 
-                        if (!eturn && crystat[id].iff)//青ターン時はクリック対象が青駒である場合のみ許可
-                        {
-                            MrkGenerator(crystat[id], CryPosition, pvp, eturn);
-                            mListResetter();//COM用に設定されてしまったリストをリセット
-                            tmpobj = obj;//クリック中オブジェクトを保持(実際に移動するときに必要)
-                            marked = true;
-                        }
+                        /*if (!eturn && crystat[id].iff)//青ターン時はクリック対象が青駒である場合のみ許可
+                        {*/
+                        MrkGenerator(crystat[id], CryPosition, pvp, eturn);
+                        mListResetter();//COM用に設定されてしまったリストをリセット
+                        tmpobj = obj;//クリック中オブジェクトを保持(実際に移動するときに必要)
+                        marked = true;
+                       /* }*//*
                         else if (eturn && !crystat[id].iff)//赤ターン時はクリック対象が赤ゴマのみ許可
                         {
                             MrkGenerator(crystat[id], CryPosition, pvp, eturn);
                             mListResetter();
                             tmpobj = obj;
                             marked = true;
-                        }
+                        }*/
                     }
                     else if (!moved && marked && obj.name.IndexOf("Marker") >= 0)
                     {//マーカークリック　移動
@@ -247,6 +253,8 @@ public class Game_Master : MonoBehaviour
 
                             //hpの変動
                             crystat[did].hp -= crystat[id].atk;
+                            var eff  = Instantiate(Damage_Effect, g_data.rawPosition[crystat[did].y,crystat[did].x], Quaternion.identity);
+                            DestroyObject(eff, 2f);
 
                             if (crystat[did].hp <= 0)//防御側のHPが0を下回るなら
                             {
@@ -301,6 +309,8 @@ public class Game_Master : MonoBehaviour
                     did = targets[0];
 
                     crystat[did].hp -= crystat[aid].atk;
+                    var eff = Instantiate(Damage_Effect, g_data.rawPosition[crystat[did].y, crystat[did].x], Quaternion.identity);
+                    DestroyObject(eff, 2f);
 
                     if (crystat[did].hp <= 0)//破壊処理
                     {
@@ -350,6 +360,8 @@ public class Game_Master : MonoBehaviour
                         did = targets[0];
 
                         crystat[did].hp -= crystat[aid].atk;
+                        var eff = Instantiate(Damage_Effect, g_data.rawPosition[crystat[did].y, crystat[did].x], Quaternion.identity);
+                        DestroyObject(eff, 2f);
 
                         if (crystat[did].hp <= 0)//破壊処理
                         {

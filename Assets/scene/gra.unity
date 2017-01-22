@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28750977, g: 0.33616576, b: 0.5220631, a: 1}
+  m_IndirectSpecularColor: {r: 0.28744343, g: 0.3361618, b: 0.52204746, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -159,6 +159,11 @@ Prefab:
       propertyPath: m_Center.x
       value: -0.040808067
       objectReference: {fileID: 0}
+    - target: {fileID: 102000013884913640, guid: 360aa40325be57948a12687dc0da576f,
+        type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54000010106688260, guid: 360aa40325be57948a12687dc0da576f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 360aa40325be57948a12687dc0da576f, type: 2}
@@ -244,10 +249,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 84414088}
-  m_LocalRotation: {x: -0.09960054, y: -0.8067073, z: -0.14224434, w: 0.56486255}
-  m_LocalPosition: {x: 28.52, y: -8.4, z: 11.05}
+  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: -16.2, z: -32.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: -20, y: -110, z: 0}
+  m_LocalEulerAnglesHint: {x: -20, y: -0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -262,9 +267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed58b91256ae7fa4fb6643133fc17874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelSpeed: 3.3
+  wheelSpeed: 6.01
   moveSpeed: 6
-  rotateSpeed: 0.65
+  rotateSpeed: 1.4
 --- !u!1 &95443448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1226,11 @@ Prefab:
         type: 2}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 102000012419696278, guid: e6deb1f3aae5ad54d80fb8b3811d9ddd,
+        type: 2}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000012065103708, guid: e6deb1f3aae5ad54d80fb8b3811d9ddd, type: 2}

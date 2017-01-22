@@ -129,7 +129,7 @@ public class Game_Data : MonoBehaviour
     //0番目に関しては仮でmyobjectと設定してあるけど使っていない
     public void StatSetter(Crystal_Status[] crystat)
     {
-        crystat[0].setter(0, 0, 0, 0, "myobject", 100, false, false);
+        crystat[0].setter(5, 0, 100, 100, "myobject", 100, false, false);
         crystat[1].setter(5, 5, 0, 0, "myking", 0, true, false);
         crystat[2].setter(4, 2, 0, 4, "myqueen", 1, true, false);
         crystat[3].setter(2, 2, 0, 3, "mybishop1", 2, true, false);
@@ -162,6 +162,7 @@ public class Game_Data : MonoBehaviour
         crystat[30].setter(1, 1, 6, 5, "enemypawn6", 5, false, false);
         crystat[31].setter(1, 1, 6, 6, "enemypawn7", 5, false, false);
         crystat[32].setter(1, 1, 6, 7, "enemypawn8", 5, false, false);
+        crystat[33].setter(5, 0, 100, 100, "enemyobject", 100, false, false);
     }
 
     //idと各駒の対応表

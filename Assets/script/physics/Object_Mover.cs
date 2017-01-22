@@ -130,17 +130,6 @@ public class Object_Mover : MonoBehaviour
                 }
                 if (tmp != null)
                 {
-                /*
-                    GameObject hand = GameObject.Find(tmp);//駒の名前からオブジェクトの実体を取得する
-                    Rigidbody rigid = hand.GetComponent<Rigidbody>();
-
-                    //rigid.isKinematic = false;
-                    //rigid.detectCollisions = false;
-                    rigid.GetComponent<Rigidbody>().MovePosition(g_data.rawPosition[i, j]);
-                    //rigid.isKinematic = true;
-                    //rigid.detectCollisions = true;       
-                 */
-
                     GameObject hand = (GameObject)Resources.Load(tmp);
                     var obj = (GameObject)Instantiate(hand, g_data.rawPosition[i, j], Quaternion.identity);
                     obj.name = tmp;

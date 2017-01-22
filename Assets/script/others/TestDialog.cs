@@ -15,6 +15,10 @@ public class TestDialog : MonoBehaviour
 
     void OnGUI()
     {
+       /* var m_guiStyle = new GUIStyle();
+        m_guiStyle.fontSize = 30;   // フォントサイズの変更.
+        */
+
         float sw = Screen.width;
         float sh = Screen.height;
 
@@ -24,7 +28,7 @@ public class TestDialog : MonoBehaviour
 
             if (GUI.Button(new Rect(sw * 2 / 5, sh * 2 / 5, sw / 5, sh / 10), "Go to Start Menu"))
             {
-                Game_Master.first = true;
+             
                 SceneManager.LoadScene("Title");
                 test.isOpened = false;
                 Destroy(this);
